@@ -12,7 +12,7 @@ import {
   TableBody,
 } from '@material-ui/core';
 
-const Sandboxes = ({ ...props }) => {
+const Sandboxes = (props) => {
   useEffect(() => {
     props.fetchAllSandboxes();
   }, []); //componentDidMount
@@ -57,7 +57,7 @@ const Sandboxes = ({ ...props }) => {
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    sandboxes: state.sandboxReducers.sandboxes,
+    sandboxes: state.sandboxes.data,
   };
 };
 

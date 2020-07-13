@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux';
-import { sandboxReducers } from './sandboxReducers';
+import { sandboxReducer } from './sandboxReducer';
 
-export const reducers = combineReducers({
-  sandboxReducers,
-});
+export const reducers = combineReducers({ sandboxes: sandboxReducer });
