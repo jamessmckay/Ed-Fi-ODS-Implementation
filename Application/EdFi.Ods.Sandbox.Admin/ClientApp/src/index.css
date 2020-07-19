@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
 body {
   margin: 0;
-  font-family: 'Roboto';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +10,37 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+html {
+  background-color: #121212;
+  color: #fff;
+}
+
+section {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #dedede;
+}
+
+img {
+  width: 300px;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tile {
+  text-align: center;
+  padding: 10px;
 }
