@@ -1,68 +1,63 @@
-// import React, { useEffect } from 'react';
-// import { connect } from 'react-redux';
-// import * as actions from '../actions/sandboxActions';
-// import {
-//   Grid,
-//   Paper,
-//   TableContainer,
-//   Table,
-//   TableHead,
-//   TableRow,
-//   TableCell,
-//   TableBody,
-// } from '@material-ui/core';
+import React, { useEffect, Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllSandboxes, selectSandboxes } from '../slices/sandboxesSlice';
 
-// const Sandboxes = (props) => {
-//   useEffect(() => {
-//     props.fetchAllSandboxes();
-//   }, []); //componentDidMount
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
-//   return (
-//     <Paper>
-//       <Grid container>
-//         <Grid item xs={12}>
-//           <h3>Sandboxes</h3>
-//           <TableContainer>
-//             <Table>
-//               <TableHead>
-//                 <TableRow>
-//                   <TableCell>Vendor Name</TableCell>
-//                   <TableCell>Name</TableCell>
-//                   <TableCell>Api Key</TableCell>
-//                   <TableCell>Database</TableCell>
-//                   <TableCell>IsOrphan</TableCell>
-//                 </TableRow>
-//               </TableHead>
-//               <TableBody>
-//                 {props.sandboxes.map((sandbox, index) => {
-//                   return (
-//                     <TableRow key={index} hover>
-//                       <TableCell>{sandbox.owner}</TableCell>
-//                       <TableCell>{sandbox.name}</TableCell>
-//                       <TableCell>{sandbox.apiKey}</TableCell>
-//                       <TableCell>{sandbox.databaseName}</TableCell>
-//                       <TableCell>{sandbox.isOrphan}</TableCell>
-//                     </TableRow>
-//                   );
-//                 })}
-//               </TableBody>
-//             </Table>
-//           </TableContainer>
-//         </Grid>
-//       </Grid>
-//     </Paper>
-//   );
-// };
+export const Sandboxes = () => {
+  const dispatch = useDispatch();
+  const { sandboxes, loading, hasErrors } = useSelector(selectSandboxes);
 
-// const mapStateToProps = (state) => {
-//   console.log(state);
-//   return {
-//     sandboxes: state.sandboxes.data,
-//   };
-// };
+  useEffect(() => {
+    dispatch(getAllSandboxes());
+  }, [dispatch]); //componentDidMount
 
-// const mapActionToProps = {
-//   fetchAllSandboxes: () => actions.fetchAll(),
-// };
+  const renderSandboxes = () => {
+    if (loading)
+      return (
+        <TableRow>
+          <TableCell>Loading sandboxes...</TableCell>
+        </TableRow>
+      );
 
-// export default connect(mapStateToProps, mapActionToProps)(Sandboxes);
+    if (hasErrors)
+      return (
+        <TableRow>
+          <TableCell>Cannot load sandboxes...</TableCell>
+        </TableRow>
+      );
+
+    return sandboxes.map((sandbox, index) => (
+      <TableRow key={index} hover>
+        <TableCell>{sandbox.owner}</TableCell>
+        <TableCell>{sandbox.name}</TableCell>
+        <TableCell>{sandbox.apiKey}</TableCell>
+        <TableCell>{sandbox.databaseName}</TableCell>
+        <TableCell>{sandbox.isOrphan}</TableCell>
+      </TableRow>
+    ));
+  };
+
+  return (
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Vendor Name</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Api Key</TableCell>
+            <TableCell>Database</TableCell>
+            <TableCell>IsOrphan</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{renderSandboxes()}</TableBody>
+      </Table>
+    </TableContainer>
+  );
+};

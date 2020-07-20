@@ -1,12 +1,19 @@
 import React from 'react';
 import './App.css';
-import { Recipe } from './features/recipe/Recipe';
+import { Container } from '@material-ui/core';
+
+import SandboxManagement from './pages/SandboxManagement';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Nav from './components/Nav';
 
 function App() {
   return (
-    <div className="App">
-      <Recipe />
-    </div>
+    <Container maxwidth="md">
+      <Header />
+      <Nav />
+      <Footer />
+    </Container>
   );
 }
 
